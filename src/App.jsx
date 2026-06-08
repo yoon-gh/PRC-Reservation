@@ -981,7 +981,10 @@ function AdminDownloadCard({ reservations, calendarMonth }) {
 export default function App() {
   const [tab, setTab] = useState(CATEGORY.ALL);
   const [page, setPage] = useState(PAGE.OVERVIEW);
-  const [calendarMonth, setCalendarMonth] = useState(new Date(2026, 4, 1));
+  const [calendarMonth, setCalendarMonth] = useState(() => {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), 1);
+  });
   const [reservationsState, setReservationsState] = useState([]);
   const [loading, setLoading] = useState(false);
   const [session, setSession] = useState(null);

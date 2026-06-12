@@ -9,3 +9,4 @@
 }
 
 .reservation-table-wrap{max-height:520px;overflow:auto}.admin-table-wrap{max-height:620px;overflow:auto}
+.admin-table th:last-child,.admin-table td:last-child{min-width:260px}.admin-row-actions{align-items:center;flex-wrap:nowrap}.admin-row-actions .btn{width:auto;flex:0 0 auto}

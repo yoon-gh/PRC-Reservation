@@ -920,12 +920,12 @@ function AdminReservationPanel({ reservations, onUpdateReservation, onDeleteRese
                   <td>{isEditing ? <input type="datetime-local" value={row.start} onChange={(event) => updateDraft("start", event.target.value)} /> : formatDateTime(reservation.start)}</td>
                   <td>{isEditing ? <input type="datetime-local" value={row.end} onChange={(event) => updateDraft("end", event.target.value)} /> : formatDateTime(reservation.end)}</td>
                   <td>{isEditing ? (
-                    <div className="actions">
+                    <div className="actions admin-row-actions">
                       <Button type="button" onClick={saveDraft}>저장</Button>
                       <Button type="button" variant="light" onClick={cancelEdit}>취소</Button>
                     </div>
                   ) : (
-                    <div className="actions">
+                    <div className="actions admin-row-actions">
                       {reservation.status === RESERVATION_STATUS.PENDING && <Button type="button" onClick={() => quickStatus(reservation.id, RESERVATION_STATUS.APPROVED)}>승인</Button>}
                       {reservation.status === RESERVATION_STATUS.PENDING && <Button type="button" variant="light" onClick={() => quickStatus(reservation.id, RESERVATION_STATUS.REJECTED)}>반려</Button>}
                       <Button type="button" variant="light" onClick={() => startEdit(reservation)}>수정</Button>

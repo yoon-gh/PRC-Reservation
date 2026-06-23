@@ -1071,7 +1071,8 @@ export default function App() {
 
   const selectedMonthReservations = useMemo(() => filterReservationsByMonth(reservationsState, calendarMonth), [reservationsState, calendarMonth]);
   const filteredReservations = useMemo(() => filterReservationsByCategory(selectedMonthReservations, tab), [selectedMonthReservations, tab]);
-  const reservationStats = useMemo(() => getReservationStats(selectedMonthReservations), [selectedMonthReservations]);
+  const selectedMonthStats = useMemo(() => getReservationStats(selectedMonthReservations), [selectedMonthReservations]);
+  const allReservationStats = useMemo(() => getReservationStats(reservationsState), [reservationsState]);
   const todayFacilityStatusMap = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -1095,9 +1096,9 @@ export default function App() {
   }, []);
 
   const dashboardCards = [
-    { label: "해당 월 전체 예약", value: reservationStats.total, icon: categoryIcon[CATEGORY.ALL], helper: `${calendarMonth.getFullYear()}년 ${calendarMonth.getMonth() + 1}월 기준` },
+    { label: "해당 월 전체 예약", value: selectedMonthStats.total, icon: categoryIcon[CATEGORY.ALL], helper: `${calendarMonth.getFullYear()}년 ${calendarMonth.getMonth() + 1}월 기준` },
     { label: "사용 중 시설", value: facilityStatusStats[FACILITY_STATUS.IN_USE] || 0, icon: "🔵", helper: "현재 사용 중" },
-    { label: "승인 대기 예약", value: reservationStats.pending, icon: "🟡", helper: "현재 승인 대기 상태" },
+    { label: "승인 대기 예약", value: allReservationStats.pending, icon: "🟡", helper: "전체 기간 기준" },
   ];
 
   return (

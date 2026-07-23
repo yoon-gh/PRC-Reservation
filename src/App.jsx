@@ -63,22 +63,26 @@ const imagingFacilities = [
 
 const allFacilities = [...growthFacilities, ...imagingFacilities];
 
-const defaultForm = {
-  category: CATEGORY.IMAGING,
-  facility: imagingFacilities[0].name,
-  bookingMode: "single",
-  title: "",
-  user: "",
-  crop: "",
-  start: "2026-05-13T09:00",
-  end: "2026-05-13T18:00",
-  recurringStartDate: "2026-05-13",
-  recurringEndDate: "2026-05-13",
-  recurringStartTime: "09:00",
-  recurringEndTime: "10:00",
-  imagingMode: "독립 촬영",
-  growthImagingPlan: "미촬영",
-};
+function createDefaultForm() {
+  const today = dateKey(new Date());
+
+  return {
+    category: CATEGORY.IMAGING,
+    facility: imagingFacilities[0].name,
+    bookingMode: "single",
+    title: "",
+    user: "",
+    crop: "",
+    start: `${today}T09:00`,
+    end: `${today}T18:00`,
+    recurringStartDate: today,
+    recurringEndDate: today,
+    recurringStartTime: "09:00",
+    recurringEndTime: "10:00",
+    imagingMode: "독립 촬영",
+    growthImagingPlan: "미촬영",
+  };
+}
 
 const adminEmails = (import.meta.env.VITE_ADMIN_EMAILS || "")
   .split(",")
@@ -371,7 +375,7 @@ function FacilityCard({ item }) {
 }
 
 function ReservationForm({ reservations, onAddReservation, disabled, isAdmin = false, initialCategory = CATEGORY.IMAGING }) {
-  const [form, setForm] = useState(defaultForm);
+  const [form, setForm] = useState(() => createDefaultForm());
   const [message, setMessage] = useState(null);
   const selectableFacilities = getFacilitiesByCategory(form.category);
   const isImaging = form.category === CATEGORY.IMAGING;
